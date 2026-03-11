@@ -11,12 +11,12 @@
         .hero-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 100px 0;
+            padding: 80px 0;
             border-bottom-left-radius: 50px;
             border-bottom-right-radius: 50px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        .monitoring-section { margin-top: -50px; }
+        .monitoring-section { margin-top: -40px; }
         .card { border: none; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .status-success { color: #198754; font-weight: bold; }
         .status-warning { color: #ffc107; font-weight: bold; }
@@ -27,15 +27,26 @@
 
     <header class="hero-section text-center">
         <div class="container">
-            <h1 class="display-4 fw-bold">Bienvenue sur mon Projet</h1>
-            <p class="lead mt-3">Ceci est mon application web. Elle est rapide, belle et inclut un système de monitoring automatisé pour notre API partenaire.</p>
+            <h1 class="display-5 fw-bold">Monitoring API en Temps Réel</h1>
+            <p class="lead mt-2">Suivi de la disponibilité, de la latence et de la robustesse de nos services tiers.</p>
         </div>
     </header>
 
     <div class="container monitoring-section mb-5">
         <div class="card p-4">
-            <h3 class="mb-4"><i class="bi bi-activity"></i> Monitoring de l'API</h3>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0"><i class="bi bi-activity"></i> Historique des requêtes</h3>
+                
+                <a href="/run" class="btn btn-success fw-bold">
+                    <i class="bi bi-play-fill"></i> Lancer un Test API
+                </a>
+            </div>
             
+            {% if runs|length == 0 %}
+                <div class="alert alert-info text-center">
+                    Aucun test n'a encore été exécuté. Cliquez sur le bouton "Lancer un Test API" pour commencer.
+                </div>
+            {% else %}
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
@@ -45,7 +56,7 @@
                             <th>API Ciblée</th>
                             <th>Tests Réussis</th>
                             <th>Tests Échoués</th>
-                            <th>Latence Moyenne</th>
+                            <th>Latence</th>
                             <th>État Global</th>
                         </tr>
                     </thead>
@@ -72,13 +83,9 @@
                     </tbody>
                 </table>
             </div>
-            
-            <div class="mt-3 text-end">
-                <button class="btn btn-primary btn-sm"><i class="bi bi-arrow-clockwise"></i> Rafraîchir les données</button>
-            </div>
+            {% endif %}
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
