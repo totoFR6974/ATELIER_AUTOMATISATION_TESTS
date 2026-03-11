@@ -1,16 +1,44 @@
-from flask import Flask, render_template_string, render_template, jsonify, request, redirect, url_for, session
-from flask import render_template
-from flask import json
-from urllib.request import urlopen
-from werkzeug.utils import secure_filename
-import sqlite3
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.get("/")
-def consignes():
-     return render_template('consignes.html')
 
-if __name__ == "__main__":
-    # utile en local uniquement
-    app.run(host="0.0.0.0", port=5000, debug=True)
+@app.route('/')
+@app.route('/dashboard')
+def dashboard():
+   
+    
+    mock_runs = [
+        {
+            "id": 3,
+            "timestamp": "11 Mars 2026 - 15:25",
+            "api": "Agify",
+            "passed": 6,
+            "failed": 0,
+            "latency_avg_ms": 145,
+            "status": "success"
+        },
+        {
+            "id": 2,
+            "timestamp": "11 Mars 2026 - 15:20",
+            "api": "Agify",
+            "passed": 5,
+            "failed": 1,
+            "latency_avg_ms": 520,
+            "status": "warning"
+        },
+        {
+            "id": 1,
+            "timestamp": "11 Mars 2026 - 15:15",
+            "api": "Agify",
+            "passed": 6,
+            "failed": 0,
+            "latency_avg_ms": 130,
+            "status": "success"
+        }
+    ]
+    
+    return render_template('dashboard.html', runs=mock_runs)
+
+if __name__ == '__main__':
+    app.run(debug=True)
